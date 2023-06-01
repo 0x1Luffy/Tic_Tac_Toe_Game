@@ -24,3 +24,29 @@ function initGame() {
 }
 
 initGame();
+
+function swapTurn() {
+    if(currentPlayer === "X") {
+        currentPlayer ="O";
+    }
+    else{
+        currentPlayer = "X";
+    }
+    gameInfo.innerText = `Current Player - ${currentPlayer}`;
+}
+
+function handleClick(index) {
+    if(gameGrid[index] ==="") {
+        boxes[index].innerHTML = currentPlayer;
+        gameGrid[index] = currentPlayer;
+
+        swapTurn();
+        checkGameOver();
+    }
+}
+
+ boxes.forEach((box, index) => {
+    box.addEventListener("click",() => {
+        handleClick(index);
+    })
+ });
