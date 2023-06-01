@@ -22,6 +22,7 @@ function initGame() {
     boxes.forEach((box, index) => {
         box.innerText = "";
         boxes[index].style.pointerEvents = "all";
+        box.classList = `box border${index+1}`;
 
     });
     newGameBtn.classList.remove("active");
@@ -42,7 +43,45 @@ function swapTurn() {
 
 
 function checkGameOver() {
-    newGameBtn.classList.add("active");
+
+
+   winningPositions.forEach( (position) => {
+    if(  (gameGrid[position[0]] !=="" || gameGrid[position[1]] !=="" || gameGrid[position[2]] !=="")
+    && (gameGrid[position[0]] === gameGrid[position[1]] ) && (gameGrid[position[1]] === gameGrid[position[2]]))
+    
+    {
+        if(gameGrid[position[0]] === "X")
+        answer  = "X";
+        else
+        answer = "O";
+
+        boxes.forEach((box) => {
+            box.style.pointerEvents = "none";
+        })
+
+        boxes[position[0]].classList.add("win");
+        boxes[position[1]].classList.add("win");
+        boxes[position[2]].classList.add("win");
+    }
+   });
+
+
+        if(answer !== "") {
+            gameInfo.innerText = `Winner Player - ${answer}`;
+            newGameBtn.classList.add("active");
+            return;
+        }
+
+        let fillCount = 0;
+        gameGrid.forEach((box) => {
+            if(box !== "")
+             fillCount++;
+        });
+
+        if(fillCount === 9) {
+            gameInfo.innerText = "Game Tied !!!!!";
+            newGameBtn.classList.add("active");
+        }
 }
 
 function handleClick(index) {
