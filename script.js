@@ -1,6 +1,6 @@
 const boxes = document.querySelectorAll(".box");
-const gameInfo = document.querySelector("game-info");
-const newGameBtn = document.querySelector("btn");
+const gameInfo = document.querySelector(".game-info");
+const newGameBtn = document.querySelector(".btn");
 
 let currentPlayer;
 let gameGrid;
@@ -14,4 +14,13 @@ const winningPositions = [
     [2,5,8],
     [0,4,8],
     [2,4,6]
-]
+];
+
+function initGame() {
+    currentPlayer = "X";
+    gameGrid = ["","","","","","","","",""];
+    newGameBtn.classList.remove("active");
+    gameInfo.innerText = `Current Player - ${currentPlayer}`;
+}
+
+initGame();
